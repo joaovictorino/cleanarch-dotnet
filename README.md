@@ -9,6 +9,4 @@ Gostaria de transferir dinheiro para a conta de outro cliente
 - O valor de transferência deve ser maior que zero
 
 # Solução
-
-# Web API Core
 ![Visão Geral](https://github.com/joaovictorino/cleanarch-automated-tests-dotnet/blob/master/documentation/cleanarch.jpg?raw=true)

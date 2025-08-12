@@ -11,7 +11,7 @@ using SistemaBancario.Infraestrutura.Dados;
 namespace SistemaBancario.Infraestrutura.Migrations
 {
     [DbContext(typeof(ContextoBancario))]
-    [Migration("20250807194301_CriacaoInicial")]
+    [Migration("20250812220452_CriacaoInicial")]
     partial class CriacaoInicial
     {
         /// <inheritdoc />
@@ -62,7 +62,7 @@ namespace SistemaBancario.Infraestrutura.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR(50)");
 
-                    b.Property<DateTime>("DataTransacao")
+                    b.Property<DateTime>("DataHoraTransacao")
                         .HasColumnType("DATETIME");
 
                     b.Property<Guid>("IdContaDestino")

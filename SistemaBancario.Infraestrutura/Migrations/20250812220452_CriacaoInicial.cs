@@ -40,7 +40,7 @@ namespace SistemaBancario.Infraestrutura.Migrations
                     IdContaOrigem = table.Column<Guid>(type: "CHAR(36)", nullable: false, collation: "ascii_general_ci"),
                     IdContaDestino = table.Column<Guid>(type: "CHAR(36)", nullable: false, collation: "ascii_general_ci"),
                     Valor = table.Column<decimal>(type: "DECIMAL(18,2)", nullable: false),
-                    DataTransacao = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    DataHoraTransacao = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     CodigoTransacao = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },

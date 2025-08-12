@@ -51,7 +51,7 @@ namespace SistemaBancario.Aplicacao.Servicos
                 return new ResultadoTransferenciaDTO
                 {
                     CodigoTransacao = transacao.CodigoTransacao,
-                    DataTransacao = transacao.DataHoraTransacao,
+                    DataHoraTransacao = transacao.DataHoraTransacao,
                     Valor = dto.Valor,
                     NumeroContaOrigem = contaOrigem.Numero,
                     NumeroContaDestino = contaDestino.Numero,

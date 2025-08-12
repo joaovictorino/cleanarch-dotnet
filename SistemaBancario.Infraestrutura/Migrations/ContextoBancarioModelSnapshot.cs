@@ -59,7 +59,7 @@ namespace SistemaBancario.Infraestrutura.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR(50)");
 
-                    b.Property<DateTime>("DataTransacao")
+                    b.Property<DateTime>("DataHoraTransacao")
                         .HasColumnType("DATETIME");
 
                     b.Property<Guid>("IdContaDestino")

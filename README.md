@@ -11,4 +11,4 @@ Gostaria de transferir dinheiro para a conta de outro cliente
 # Solução
 
 # Web API Core
-![Visão Geral](https://github.com/joaovictorino/cleanarch-automated-tests-dotnet/blob/master/documentation/cleanarch.png?raw=true)
+![Visão Geral](https://github.com/joaovictorino/cleanarch-automated-tests-dotnet/blob/master/documentation/cleanarch.jpg?raw=true)

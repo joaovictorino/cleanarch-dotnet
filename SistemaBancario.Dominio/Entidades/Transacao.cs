@@ -6,25 +6,29 @@ namespace SistemaBancario.Dominio.Entidades
         public Guid IdContaOrigem { get; private set; }
         public Guid IdContaDestino { get; private set; }
         public decimal Valor { get; private set; }
-        public DateTime DataTransacao { get; private set; }
+        public DateTime DataHoraTransacao { get; private set; }
         public string CodigoTransacao { get; private set; }
 
         public Conta ContaOrigem { get; private set; }
         public Conta ContaDestino { get; private set; }
 
-        public Transacao(Guid idContaOrigem, Guid idContaDestino, decimal valor)
+        private Transacao() { }
+
+        public Transacao(Conta contaOrigem, Conta contaDestino, decimal valor)
         {
             Id = Guid.NewGuid();
-            IdContaOrigem = idContaOrigem;
-            IdContaDestino = idContaDestino;
+            contaOrigem = contaOrigem;
+            contaDestino = contaDestino;
+            IdContaOrigem = contaOrigem.Id;
+            IdContaDestino = contaDestino.Id;
             Valor = valor;
-            DataTransacao = DateTime.UtcNow;
+            DataHoraTransacao = DateTime.UtcNow;
             CodigoTransacao = GerarCodigoTransacao();
         }
 
         private string GerarCodigoTransacao()
         {
-            return $"TXN{DateTime.UtcNow:yyyyMMddHHmmss}{Random.Shared.Next(1000, 9999)}";
+            return $"TXN{DataHoraTransacao:yyyyMMddHHmmss}{Random.Shared.Next(1000, 9999)}";
         }
     }
 }

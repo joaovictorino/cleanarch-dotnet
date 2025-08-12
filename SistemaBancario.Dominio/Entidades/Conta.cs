@@ -12,32 +12,34 @@ namespace SistemaBancario.Dominio.Entidades
         public List<Transacao> TransacoesOrigem { get; private set; } = new();
         public List<Transacao> TransacoesDestino { get; private set; } = new();
 
-        public Conta(NumeroConta numero, string nomeCliente, decimal saldo = 0)
+        private Conta() { }
+
+        public Conta(string numero, string nomeCliente, decimal saldo = 0)
         {
             Id = Guid.NewGuid();
-            Numero = numero;
+            Numero = new NumeroConta(numero);
             NomeCliente = nomeCliente;
             Saldo = saldo;
             DataCriacao = DateTime.UtcNow;
         }
 
-        public void Debitar(decimal valor)
+        public void Depositar(decimal valor)
         {
             if (valor <= 0)
-                throw new ArgumentException("Valor deve ser maior que zero");
-
-            if (Saldo < valor)
-                throw new InvalidOperationException("Saldo insuficiente");
-
-            Saldo -= valor;
-        }
-
-        public void Creditar(decimal valor)
-        {
-            if (valor <= 0)
-                throw new ArgumentException("Valor deve ser maior que zero");
+                throw new ArgumentException("O valor do depósito deve ser positivo.");
 
             Saldo += valor;
+        }
+
+        public void Sacar(decimal valor)
+        {
+            if (valor <= 0)
+                throw new ArgumentException("O valor do saque deve ser positivo.");
+            
+            if (valor > Saldo)
+                throw new InvalidOperationException("Saldo insuficiente para o saque.");
+
+            Saldo -= valor;
         }
     }
 }

@@ -20,7 +20,8 @@ construtor.Services.AddScoped<IRepositorioTransacao, RepositorioTransacao>();
 construtor.Services.AddScoped<IUnidadeTrabalho, UnidadeTrabalho>();
 
 // Configurar serviços
-construtor.Services.AddScoped<ServicoBancario>();
+construtor.Services.AddScoped<ServicoConta>();
+construtor.Services.AddScoped<ServicoTransferir>();
 
 // Configurar controllers
 construtor.Services.AddControllers();

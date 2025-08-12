@@ -1,6 +1,6 @@
 namespace SistemaBancario.Aplicacao.DTOs
 {
-    public class ResultadoTransferenciaDto
+    public class ResultadoTransferenciaDTO
     {
         public string CodigoTransacao { get; set; } = string.Empty;
         public DateTime DataTransacao { get; set; }

@@ -26,7 +26,7 @@ namespace SistemaBancario.Infraestrutura.Configuracoes
             construtor.Property(x => x.Valor)
                 .HasColumnType("DECIMAL(18,2)");
 
-            construtor.Property(x => x.DataTransacao)
+            construtor.Property(x => x.DataHoraTransacao)
                 .HasColumnType("DATETIME");
 
             construtor.Property(x => x.CodigoTransacao)

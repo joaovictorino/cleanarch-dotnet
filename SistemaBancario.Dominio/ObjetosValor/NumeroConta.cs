@@ -15,9 +15,19 @@ namespace SistemaBancario.Dominio.ObjetosValor
             Valor = valor;
         }
 
-        public override string ToString() => Valor;
-        
-        public static implicit operator string(NumeroConta numeroConta) => numeroConta.Valor;
-        public static implicit operator NumeroConta(string valor) => new(valor);
+        public override string ToString()
+        {
+            return Valor;
+        }
+
+        public static implicit operator string(NumeroConta numeroConta)
+        {
+            return numeroConta.Valor;
+        }
+
+        public static implicit operator NumeroConta(string valor)
+        {
+            return new NumeroConta(valor);
+        }
     }
 }

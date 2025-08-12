@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaBancario.Dominio.Entidades;
 using SistemaBancario.Dominio.Interfaces;
-using SistemaBancario.Dominio.ObjetosValor;
 using SistemaBancario.Infraestrutura.Dados;
 
 namespace SistemaBancario.Infraestrutura.Repositorios
@@ -15,16 +14,10 @@ namespace SistemaBancario.Infraestrutura.Repositorios
             _contexto = contexto;
         }
 
-        public async Task<Conta?> ObterPorIdAsync(Guid id)
+        public async Task<Conta?> ObterPorNumeroAsync(string numero)
         {
             return await _contexto.Contas
-                .FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<Conta?> ObterPorNumeroAsync(NumeroConta numero)
-        {
-            return await _contexto.Contas
-                .FirstOrDefaultAsync(x => x.Numero == numero.Valor);
+                .FirstOrDefaultAsync(x => x.Numero == numero);
         }
 
         public async Task<List<Conta>> ObterTodosAsync()
@@ -42,10 +35,10 @@ namespace SistemaBancario.Infraestrutura.Repositorios
             _contexto.Contas.Update(conta);
         }
 
-        public async Task<bool> ExisteAsync(NumeroConta numero)
+        public async Task<bool> ExisteAsync(string numero)
         {
             return await _contexto.Contas
-                .AnyAsync(x => x.Numero == numero.Valor);
+                .AnyAsync(x => x.Numero == numero);
         }
     }
 }

@@ -41,12 +41,10 @@ namespace SistemaBancario.Infraestrutura.Configuracoes
 
             construtor.HasMany(x => x.TransacoesOrigem)
                 .WithOne(x => x.ContaOrigem)
-                .HasForeignKey(x => x.IdContaOrigem)
                 .OnDelete(DeleteBehavior.Restrict);
 
             construtor.HasMany(x => x.TransacoesDestino)
                 .WithOne(x => x.ContaDestino)
-                .HasForeignKey(x => x.IdContaDestino)
                 .OnDelete(DeleteBehavior.Restrict);
 
             construtor.ToTable("Contas");

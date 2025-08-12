@@ -4,14 +4,33 @@ dotnet new sln -n SistemaBancario
 # Criar projeto de dominio
 dotnet new classlib -n SistemaBancario.Dominio
 dotnet sln add SistemaBancario.Dominio
-dotnet new webapi -n SistemaBancario.Api
-dotnet sln add SistemaBancario.Api
-dotnet new classlib -n SistemaBancario.Infraestrutura
-dotnet sln add SistemaBancario.Infraestrutura
+
+# Criar projeto de aplicacao
 dotnet new classlib -n SistemaBancario.Aplicacao
 dotnet sln add SistemaBancario.Aplicacao
 
-# Adicionar referências em cada projeto
+# Adicionar referência no projeto de aplicacao
+dotnet add SistemaBancario.Aplicacao reference SistemaBancario.Dominio
+
+# Criar projeto de infraestrutura
+dotnet new classlib -n SistemaBancario.Infraestrutura
+dotnet sln add SistemaBancario.Infraestrutura
+
+# Adicionar referências no projeto de infraestrutura
+dotnet add package Microsoft.EntityFrameworkCore --version 8.0.0
+dotnet add package Pomelo.EntityFrameworkCore.MySql --version 8.0.0
+dotnet add SistemaBancario.Infraestrutura reference SistemaBancario.Dominio
+
+# Criar projeto de API
+dotnet new webapi -n SistemaBancario.Api
+dotnet sln add SistemaBancario.Api
+
+# Adicionar referências no projeto de API
+dotnet add SistemaBancario.Api reference SistemaBancario.Aplicacao
+dotnet add SistemaBancario.Api reference SistemaBancario.Infraestrutura
+dotnet add package Swashbuckle.AspNetCore --version 6.5.0
+dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.0
+
 # Instalar dependências nuget
 dotnet restore
 
@@ -33,7 +52,7 @@ dotnet ef database update --project SistemaBancario.Infraestrutura --startup-pro
 
 # Docker e Docker Compose
 # Iniciar o MySQL
-docker-compose up -d
+docker compose up -d
 
 # Verificar se está rodando
 docker ps

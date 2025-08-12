@@ -8,11 +8,13 @@ namespace SistemaBancario.Api.Controllers
     [Route("api/[controller]")]
     public class ContasController : ControllerBase
     {
-        private readonly ServicoBancario _servicoBancario;
+        private readonly ServicoConta _servicoConta;
+        private readonly ServicoTransferir _servicoTransferir;
 
-        public ContasController(ServicoBancario servicoBancario)
+        public ContasController(ServicoConta servicoConta, ServicoTransferir servicoTransferir)
         {
-            _servicoBancario = servicoBancario;
+            _servicoConta = servicoConta;
+            _servicoTransferir = servicoTransferir;
         }
 
         [HttpGet]
@@ -20,7 +22,7 @@ namespace SistemaBancario.Api.Controllers
         {
             try
             {
-                var contas = await _servicoBancario.ObterTodasContasAsync();
+                var contas = await _servicoConta.ObterTodasContasAsync();
                 return Ok(contas);
             }
             catch (Exception ex)
@@ -34,7 +36,7 @@ namespace SistemaBancario.Api.Controllers
         {
             try
             {
-                var conta = await _servicoBancario.ObterContaPorNumeroAsync(numeroConta);
+                var conta = await _servicoConta.ObterContaPorNumeroAsync(numeroConta);
                 
                 if (conta == null)
                     return NotFound("Conta não encontrada");
@@ -48,13 +50,13 @@ namespace SistemaBancario.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar([FromBody] CriarContaDto dto)
+        public async Task<IActionResult> Criar([FromBody] CriarContaDTO dto)
         {
             try
             {
-                var conta = await _servicoBancario.CriarContaAsync(dto);
+                var conta = await _servicoConta.CriarAsync(dto);
                 return CreatedAtAction(nameof(ObterPorNumero), 
-                    new { numeroConta = conta.Numero.Valor }, conta);
+                    new { numeroConta = conta.NumeroConta }, conta);
             }
             catch (Exception ex)
             {
@@ -63,11 +65,11 @@ namespace SistemaBancario.Api.Controllers
         }
 
         [HttpPost("/transferir")]
-        public async Task<IActionResult> Transferir([FromBody] TransferenciaDto dto)
+        public async Task<IActionResult> Transferir([FromBody] TransferenciaDTO dto)
         {
             try
             {
-                var resultado = await _servicoBancario.TransferirAsync(dto);
+                var resultado = await _servicoTransferir.TransferirAsync(dto);
                 return Ok(resultado);
             }
             catch (Exception ex)

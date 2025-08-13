@@ -1,4 +1,3 @@
-using System.Security;
 using Microsoft.EntityFrameworkCore.Storage;
 using SistemaBancario.Dominio.Interfaces;
 using SistemaBancario.Infraestrutura.Dados;

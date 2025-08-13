@@ -10,6 +10,7 @@ dotnet new classlib -n SistemaBancario.Aplicacao
 dotnet sln add SistemaBancario.Aplicacao
 
 # Adicionar referência no projeto de aplicacao
+dotnet add package AutoMapper --version 13.0.1
 dotnet add SistemaBancario.Aplicacao reference SistemaBancario.Dominio
 
 # Criar projeto de infraestrutura
@@ -30,6 +31,8 @@ dotnet add SistemaBancario.Api reference SistemaBancario.Aplicacao
 dotnet add SistemaBancario.Api reference SistemaBancario.Infraestrutura
 dotnet add package Swashbuckle.AspNetCore --version 6.5.0
 dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.0
+dotnet add package AutoMapper --version 13.0.1
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 13.0.1
 
 # Instalar dependências nuget
 dotnet restore
@@ -40,18 +43,16 @@ dotnet build
 # Execute projeto API
 dotnet run --project SistemaBancario.Api
 
-# Migração com EF
 # Instalar ferramenta EF (se não tiver)
 dotnet tool install --global dotnet-ef
 
-# Criar primeira migration
+# Criar primeira migração
 dotnet ef migrations add CriacaoInicial --project SistemaBancario.Infraestrutura --startup-project SistemaBancario.Api
 
-# Aplicar migration ao banco
+# Aplicar migração no banco
 dotnet ef database update --project SistemaBancario.Infraestrutura --startup-project SistemaBancario.Api
 
-# Docker e Docker Compose
-# Iniciar o MySQL
+# Iniciar o MySQL com Docker Compose
 docker compose up -d
 
 # Verificar se está rodando

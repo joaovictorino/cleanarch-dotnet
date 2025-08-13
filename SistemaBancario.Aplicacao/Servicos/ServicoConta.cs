@@ -1,4 +1,6 @@
-using SistemaBancario.Aplicacao.DTOs;
+using AutoMapper;
+using SistemaBancario.Aplicacao.DTOs.ConsultarConta;
+using SistemaBancario.Aplicacao.DTOs.CriarConta;
 using SistemaBancario.Dominio.Entidades;
 using SistemaBancario.Dominio.Interfaces;
 
@@ -6,17 +8,21 @@ namespace SistemaBancario.Aplicacao.Servicos
 {
     public class ServicoConta
     {
-
         private readonly IRepositorioConta _repositorioConta;
         private readonly IUnidadeTrabalho _unidadeTrabalho;
+        private readonly IMapper _mapper;
 
-        public ServicoConta(IRepositorioConta repositorioConta, IUnidadeTrabalho unidadeTrabalho)
+        public ServicoConta(
+            IRepositorioConta repositorioConta,
+            IUnidadeTrabalho unidadeTrabalho,
+            IMapper mapper)
         {
             _repositorioConta = repositorioConta;
             _unidadeTrabalho = unidadeTrabalho;
+            _mapper = mapper;
         }
 
-        public async Task<ResultadoCriarContaDTO> CriarAsync(CriarContaDTO dto)
+        public async Task CriarAsync(CriarContaDTO dto)
         {
             try
             {
@@ -30,12 +36,6 @@ namespace SistemaBancario.Aplicacao.Servicos
                 await _repositorioConta.AdicionarAsync(conta);
 
                 await _unidadeTrabalho.ConfirmarTransacaoAsync();
-
-                return new ResultadoCriarContaDTO{
-                    Id = conta.Id,
-                    NumeroConta = conta.Numero,
-                    NomeCliente = conta.NomeCliente 
-                }; 
             }
             catch (Exception)
             {
@@ -44,14 +44,16 @@ namespace SistemaBancario.Aplicacao.Servicos
             }
         }
 
-        public async Task<List<Conta>> ListarAsync()
+        public async Task<List<ResultadoListar>> ListarAsync()
         {
-            return await _repositorioConta.ListarAsync();
+            var contas = await _repositorioConta.ListarAsync();
+            return _mapper.Map<List<ResultadoListar>>(contas);
         }
 
-        public async Task<Conta?> ObterPorNumeroAsync(string numeroConta)
+        public async Task<ResultadoObterPorNumero?> ObterPorNumeroAsync(string numeroConta)
         {
-            return await _repositorioConta.ObterPorNumeroAsync(numeroConta);
+            Conta? conta = await _repositorioConta.ObterPorNumeroAsync(numeroConta);
+            return _mapper.Map<ResultadoObterPorNumero>(conta);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace SistemaBancario.Dominio.Entidades
             Numero = new NumeroConta(numero);
             NomeCliente = nomeCliente;
             Saldo = saldo;
-            DataCriacao = DateTime.UtcNow;
+            DataCriacao = DateTime.Now;
         }
 
         public void Depositar(decimal valor)

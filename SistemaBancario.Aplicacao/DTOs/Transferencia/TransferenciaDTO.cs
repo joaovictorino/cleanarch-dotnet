@@ -1,4 +1,4 @@
-namespace SistemaBancario.Aplicacao.DTOs
+namespace SistemaBancario.Aplicacao.DTOs.Transferencia
 {
     public class TransferenciaDTO
     {

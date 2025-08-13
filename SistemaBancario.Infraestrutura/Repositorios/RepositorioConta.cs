@@ -17,6 +17,8 @@ namespace SistemaBancario.Infraestrutura.Repositorios
         public async Task<Conta?> ObterPorNumeroAsync(string numero)
         {
             return await _contexto.Contas
+                .Include(c => c.TransacoesOrigem)
+                .Include(c => c.TransacoesDestino)
                 .FirstOrDefaultAsync(x => x.Numero == numero);
         }
 

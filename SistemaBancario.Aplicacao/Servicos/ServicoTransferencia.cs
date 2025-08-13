@@ -1,4 +1,5 @@
-using SistemaBancario.Aplicacao.DTOs;
+using AutoMapper;
+using SistemaBancario.Aplicacao.DTOs.Transferencia;
 using SistemaBancario.Dominio.Interfaces;
 using SistemaBancario.Dominio.Servicos;
 
@@ -9,15 +10,19 @@ namespace SistemaBancario.Aplicacao.Servicos
         private readonly IRepositorioConta _repositorioConta;
         private readonly IRepositorioTransacao _repositorioTransacao;
         private readonly IUnidadeTrabalho _unidadeTrabalho;
+        private readonly IMapper _mapper;
+
 
         public ServicoTransferencia(
             IRepositorioConta repositorioConta,
             IRepositorioTransacao repositorioTransacao,
-            IUnidadeTrabalho unidadeTrabalho)
+            IUnidadeTrabalho unidadeTrabalho,
+            IMapper mapper)
         {
             _repositorioConta = repositorioConta;
             _repositorioTransacao = repositorioTransacao;
             _unidadeTrabalho = unidadeTrabalho;
+            _mapper = mapper;
         }
 
         public async Task<ResultadoTransferenciaDTO> TransferirAsync(TransferenciaDTO dto)
@@ -47,14 +52,7 @@ namespace SistemaBancario.Aplicacao.Servicos
 
                 await _unidadeTrabalho.ConfirmarTransacaoAsync();
 
-                return new ResultadoTransferenciaDTO
-                {
-                    CodigoTransacao = transacao.CodigoTransacao,
-                    DataHoraTransacao = transacao.DataHoraTransacao,
-                    Valor = dto.Valor,
-                    Mensagem = "Transferência realizada com sucesso"
-                };
-                
+                return _mapper.Map<ResultadoTransferenciaDTO>(transacao);                
             }
             catch (Exception)
             {

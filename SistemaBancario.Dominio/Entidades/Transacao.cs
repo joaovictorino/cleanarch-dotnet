@@ -22,7 +22,7 @@ namespace SistemaBancario.Dominio.Entidades
             IdContaOrigem = contaOrigem.Id;
             IdContaDestino = contaDestino.Id;
             Valor = valor;
-            DataHoraTransacao = DateTime.UtcNow;
+            DataHoraTransacao = DateTime.Now;
             CodigoTransacao = GerarCodigoTransacao();
         }
 

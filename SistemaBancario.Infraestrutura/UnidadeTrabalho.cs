@@ -34,7 +34,7 @@ namespace SistemaBancario.Infraestrutura
                 if (_transacao != null)
                     await _transacao.CommitAsync();
             }
-            catch
+            catch (Exception)
             {
                 await DesfazerTransacaoAsync();
                 throw;

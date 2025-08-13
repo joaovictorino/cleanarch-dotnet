@@ -12,7 +12,14 @@ namespace SistemaBancario.Dominio.Entidades
         public List<Transacao> TransacoesOrigem { get; private set; } = new();
         public List<Transacao> TransacoesDestino { get; private set; } = new();
 
-        private Conta() { }
+        private Conta(Guid id, NumeroConta numero, string nomeCliente, decimal saldo, DateTime dataCriacao)
+        {
+            Id = id;
+            Numero = numero;
+            NomeCliente = nomeCliente;
+            Saldo = saldo;
+            DataCriacao = dataCriacao;
+        }
 
         public Conta(string numero, string nomeCliente, decimal saldo = 0)
         {

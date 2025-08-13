@@ -11,7 +11,7 @@ namespace SistemaBancario.Dominio.Servicos
             if (contaDestino == null)
                 throw new ArgumentNullException(nameof(contaDestino), "Conta de destino não pode ser nula.");
             if (valor <= 0)
-                throw new ArgumentException("O valor da transferência deve ser positivo.", nameof(valor));
+                throw new ArgumentException("O valor da transferência deve ser positivo.");
 
             contaOrigem.Sacar(valor);
             contaDestino.Depositar(valor);

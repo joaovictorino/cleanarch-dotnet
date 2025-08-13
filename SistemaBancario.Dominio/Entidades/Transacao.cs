@@ -9,10 +9,19 @@ namespace SistemaBancario.Dominio.Entidades
         public DateTime DataHoraTransacao { get; private set; }
         public string CodigoTransacao { get; private set; }
 
-        public Conta ContaOrigem { get; private set; }
-        public Conta ContaDestino { get; private set; }
+        public Conta ContaOrigem { get; private set; } = null!;
+        public Conta ContaDestino { get; private set; } = null!;
 
-        private Transacao() { }
+        private Transacao(Guid id, Guid idContaOrigem, Guid idContaDestino, decimal valor,
+                         DateTime dataHoraTransacao, string codigoTransacao)
+        {
+            Id = id;
+            IdContaOrigem = idContaOrigem;
+            IdContaDestino = idContaDestino;
+            Valor = valor;
+            DataHoraTransacao = dataHoraTransacao;
+            CodigoTransacao = codigoTransacao;
+        }
 
         public Transacao(Conta contaOrigem, Conta contaDestino, decimal valor)
         {

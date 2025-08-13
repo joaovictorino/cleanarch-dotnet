@@ -32,7 +32,7 @@ namespace SistemaBancario.Infraestrutura.Repositorios
             await _contexto.Contas.AddAsync(conta);
         }
 
-        public async Task AtualizarAsync(Conta conta)
+        public void Atualizar(Conta conta)
         {
             _contexto.Contas.Update(conta);
         }

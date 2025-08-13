@@ -1,22 +1,23 @@
 using SistemaBancario.Dominio.Entidades;
+using SistemaBancario.Dominio.Interfaces;
 
 namespace SistemaBancario.Dominio.Servicos
 {
-    public class TransferirValor
+    public class TransferirValor : ITransferirValor
     {
-        public Transacao Transferir(Conta contaOrigem, Conta contaDestino, decimal valor)
+        public Transacao Transferir(Conta origem, Conta destino, decimal valor)
         {
-            if (contaOrigem == null)
-                throw new ArgumentNullException(nameof(contaOrigem), "Conta de origem não pode ser nula.");
-            if (contaDestino == null)
-                throw new ArgumentNullException(nameof(contaDestino), "Conta de destino não pode ser nula.");
+            if (origem == null)
+                throw new ArgumentNullException(nameof(origem), "Conta de origem não pode ser nula.");
+            if (destino == null)
+                throw new ArgumentNullException(nameof(destino), "Conta de destino não pode ser nula.");
             if (valor <= 0)
                 throw new ArgumentException("O valor da transferência deve ser positivo.");
 
-            contaOrigem.Sacar(valor);
-            contaDestino.Depositar(valor);
+            origem.Sacar(valor);
+            destino.Depositar(valor);
 
-            return new Transacao(contaOrigem, contaDestino, valor);
+            return new Transacao(origem, destino, valor);
         }
     }
 }

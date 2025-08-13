@@ -7,7 +7,7 @@ namespace SistemaBancario.Dominio.Interfaces
         Task<Conta?> ObterPorNumeroAsync(string numero);
         Task<List<Conta>> ListarAsync();
         Task AdicionarAsync(Conta conta);
-        Task AtualizarAsync(Conta conta);
+        void Atualizar(Conta conta);
         Task<bool> ExisteAsync(string numero);
     }
 }

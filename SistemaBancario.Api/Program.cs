@@ -6,6 +6,7 @@ using SistemaBancario.Dominio.Interfaces;
 using SistemaBancario.Aplicacao.Servicos;
 using SistemaBancario.Infraestrutura.Mapeamentos;
 using SistemaBancario.Aplicacao.Interfaces;
+using SistemaBancario.Api.Middlewares;
 
 var construtor = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

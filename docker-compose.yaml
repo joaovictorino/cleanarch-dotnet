@@ -6,4 +6,3 @@ services:
       MYSQL_DATABASE: SistemaBancarioDb
     ports:
       - "3306:3306"
-    command: --default-authentication-plugin=mysql_native_password

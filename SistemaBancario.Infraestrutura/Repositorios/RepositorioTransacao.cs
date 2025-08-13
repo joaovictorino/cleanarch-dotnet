@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using SistemaBancario.Dominio.Entidades;
 using SistemaBancario.Dominio.Interfaces;
 using SistemaBancario.Infraestrutura.Dados;

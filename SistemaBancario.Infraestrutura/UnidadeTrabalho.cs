@@ -1,3 +1,4 @@
+using System.Security;
 using Microsoft.EntityFrameworkCore.Storage;
 using SistemaBancario.Dominio.Interfaces;
 using SistemaBancario.Infraestrutura.Dados;
@@ -29,8 +30,9 @@ namespace SistemaBancario.Infraestrutura
             try
             {
                 await SalvarAlteracoesAsync();
-                if(_transacao != null)
-                  await _transacao.CommitAsync();
+                
+                if (_transacao != null)
+                    await _transacao.CommitAsync();
             }
             catch
             {

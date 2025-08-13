@@ -28,7 +28,7 @@ namespace SistemaBancario.Aplicacao.Servicos
                 var conta = new Conta(dto.NumeroConta, dto.NomeCliente, dto.SaldoInicial);
 
                 await _repositorioConta.AdicionarAsync(conta);
-                await _unidadeTrabalho.SalvarAlteracoesAsync();
+
                 await _unidadeTrabalho.ConfirmarTransacaoAsync();
 
                 return new ResultadoCriarContaDTO{
@@ -44,12 +44,12 @@ namespace SistemaBancario.Aplicacao.Servicos
             }
         }
 
-        public async Task<List<Conta>> ObterTodasContasAsync()
+        public async Task<List<Conta>> ListarAsync()
         {
-            return await _repositorioConta.ObterTodosAsync();
+            return await _repositorioConta.ListarAsync();
         }
 
-        public async Task<Conta?> ObterContaPorNumeroAsync(string numeroConta)
+        public async Task<Conta?> ObterPorNumeroAsync(string numeroConta)
         {
             return await _repositorioConta.ObterPorNumeroAsync(numeroConta);
         }

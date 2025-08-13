@@ -11,7 +11,6 @@ namespace SistemaBancario.Infraestrutura.Configuracoes
         {
             construtor.HasKey(x => x.Id);
             
-            // Configuração específica para MySQL
             construtor.Property(x => x.Id)
                 .HasColumnType("CHAR(36)")
                 .ValueGeneratedNever();

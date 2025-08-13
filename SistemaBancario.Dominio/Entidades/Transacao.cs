@@ -17,8 +17,8 @@ namespace SistemaBancario.Dominio.Entidades
         public Transacao(Conta contaOrigem, Conta contaDestino, decimal valor)
         {
             Id = Guid.NewGuid();
-            contaOrigem = contaOrigem;
-            contaDestino = contaDestino;
+            ContaOrigem = contaOrigem;
+            ContaDestino = contaDestino;
             IdContaOrigem = contaOrigem.Id;
             IdContaDestino = contaDestino.Id;
             Valor = valor;

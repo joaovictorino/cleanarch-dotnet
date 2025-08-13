@@ -21,7 +21,7 @@ construtor.Services.AddScoped<IUnidadeTrabalho, UnidadeTrabalho>();
 
 // Configurar serviços
 construtor.Services.AddScoped<ServicoConta>();
-construtor.Services.AddScoped<ServicoTransferir>();
+construtor.Services.AddScoped<ServicoTransferencia>();
 
 // Configurar controllers
 construtor.Services.AddControllers();

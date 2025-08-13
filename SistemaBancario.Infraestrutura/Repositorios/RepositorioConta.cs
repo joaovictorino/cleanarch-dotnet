@@ -20,7 +20,7 @@ namespace SistemaBancario.Infraestrutura.Repositorios
                 .FirstOrDefaultAsync(x => x.Numero == numero);
         }
 
-        public async Task<List<Conta>> ObterTodosAsync()
+        public async Task<List<Conta>> ListarAsync()
         {
             return await _contexto.Contas.ToListAsync();
         }

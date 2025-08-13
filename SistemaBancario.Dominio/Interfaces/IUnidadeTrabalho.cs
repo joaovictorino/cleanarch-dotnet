@@ -2,8 +2,8 @@ namespace SistemaBancario.Dominio.Interfaces
 {
     public interface IUnidadeTrabalho
     {
-        Task<int> SalvarAlteracoesAsync();
         Task IniciarTransacaoAsync();
+        Task<int> SalvarAlteracoesAsync();
         Task ConfirmarTransacaoAsync();
         Task DesfazerTransacaoAsync();
     }

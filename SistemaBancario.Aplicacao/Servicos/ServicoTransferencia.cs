@@ -4,13 +4,13 @@ using SistemaBancario.Dominio.Servicos;
 
 namespace SistemaBancario.Aplicacao.Servicos
 {
-    public class ServicoTransferir
+    public class ServicoTransferencia
     {
         private readonly IRepositorioConta _repositorioConta;
         private readonly IRepositorioTransacao _repositorioTransacao;
         private readonly IUnidadeTrabalho _unidadeTrabalho;
 
-        public ServicoTransferir(
+        public ServicoTransferencia(
             IRepositorioConta repositorioConta,
             IRepositorioTransacao repositorioTransacao,
             IUnidadeTrabalho unidadeTrabalho)
@@ -45,7 +45,6 @@ namespace SistemaBancario.Aplicacao.Servicos
                 await _repositorioConta.AtualizarAsync(contaOrigem);
                 await _repositorioConta.AtualizarAsync(contaDestino);
 
-                await _unidadeTrabalho.SalvarAlteracoesAsync();
                 await _unidadeTrabalho.ConfirmarTransacaoAsync();
 
                 return new ResultadoTransferenciaDTO
@@ -53,8 +52,6 @@ namespace SistemaBancario.Aplicacao.Servicos
                     CodigoTransacao = transacao.CodigoTransacao,
                     DataHoraTransacao = transacao.DataHoraTransacao,
                     Valor = dto.Valor,
-                    NumeroContaOrigem = contaOrigem.Numero,
-                    NumeroContaDestino = contaDestino.Numero,
                     Mensagem = "Transferência realizada com sucesso"
                 };
                 

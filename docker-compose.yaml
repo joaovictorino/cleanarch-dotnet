@@ -3,15 +3,8 @@ services:
     image: mysql:8.0
     container_name: banking_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: BankingSystemDb
-      MYSQL_USER: banking_user
-      MYSQL_PASSWORD: banking_pass
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: SistemaBancarioDb
     ports:
       - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
-
-volumes:
-  mysql_data:

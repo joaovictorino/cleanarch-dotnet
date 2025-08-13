@@ -2,8 +2,6 @@ using SistemaBancario.Aplicacao.DTOs.Transferencia;
 using SistemaBancario.Aplicacao.Interfaces;
 using SistemaBancario.Dominio.Entidades;
 using SistemaBancario.Dominio.Interfaces;
-using SistemaBancario.Dominio.Servicos;
-
 namespace SistemaBancario.Aplicacao.Servicos
 {
     public class ServicoTransferencia
@@ -12,18 +10,21 @@ namespace SistemaBancario.Aplicacao.Servicos
         private readonly IRepositorioTransacao _repositorioTransacao;
         private readonly IUnidadeTrabalho _unidadeTrabalho;
         private readonly IMapeamentoTransacao _mapeamentoTransacao;
+        private readonly ITransferirValor _transferirValor;
 
 
         public ServicoTransferencia(
             IRepositorioConta repositorioConta,
             IRepositorioTransacao repositorioTransacao,
             IUnidadeTrabalho unidadeTrabalho,
-            IMapeamentoTransacao mapeamentoTransacao)
+            IMapeamentoTransacao mapeamentoTransacao,
+            ITransferirValor transferirValor)
         {
             _repositorioConta = repositorioConta;
             _repositorioTransacao = repositorioTransacao;
             _unidadeTrabalho = unidadeTrabalho;
             _mapeamentoTransacao = mapeamentoTransacao;
+            _transferirValor = transferirValor;
         }
 
         public async Task<ResultadoTransferenciaDTO> TransferirAsync(TransferenciaDTO dto)
@@ -44,8 +45,7 @@ namespace SistemaBancario.Aplicacao.Servicos
                 if (contaOrigem.Id == contaDestino.Id)
                     throw new InvalidOperationException("Conta de origem e destino não podem ser iguais");
 
-                TransferirValor transferencia = new TransferirValor();
-                Transacao transacao = transferencia.Transferir(contaOrigem, contaDestino, dto.Valor);
+                Transacao transacao = _transferirValor.Transferir(contaOrigem, contaDestino, dto.Valor);
 
                 await _repositorioTransacao.AdicionarAsync(transacao);
                 _repositorioConta.Atualizar(contaOrigem);

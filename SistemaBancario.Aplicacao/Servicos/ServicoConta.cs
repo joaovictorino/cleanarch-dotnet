@@ -1,6 +1,6 @@
-using AutoMapper;
 using SistemaBancario.Aplicacao.DTOs.ConsultarConta;
 using SistemaBancario.Aplicacao.DTOs.CriarConta;
+using SistemaBancario.Aplicacao.Interfaces;
 using SistemaBancario.Dominio.Entidades;
 using SistemaBancario.Dominio.Interfaces;
 
@@ -10,16 +10,16 @@ namespace SistemaBancario.Aplicacao.Servicos
     {
         private readonly IRepositorioConta _repositorioConta;
         private readonly IUnidadeTrabalho _unidadeTrabalho;
-        private readonly IMapper _mapper;
+        private readonly IMapeamentoConta _mapeamentoConta;
 
         public ServicoConta(
             IRepositorioConta repositorioConta,
             IUnidadeTrabalho unidadeTrabalho,
-            IMapper mapper)
+            IMapeamentoConta mapeamentoConta)
         {
             _repositorioConta = repositorioConta;
             _unidadeTrabalho = unidadeTrabalho;
-            _mapper = mapper;
+            _mapeamentoConta = mapeamentoConta;
         }
 
         public async Task CriarAsync(CriarContaDTO dto)
@@ -46,14 +46,15 @@ namespace SistemaBancario.Aplicacao.Servicos
 
         public async Task<List<ResultadoListar>> ListarAsync()
         {
-            var contas = await _repositorioConta.ListarAsync();
-            return _mapper.Map<List<ResultadoListar>>(contas);
+            List<Conta> contas = await _repositorioConta.ListarAsync();
+            return _mapeamentoConta.ToDTO(contas);
         }
 
         public async Task<ResultadoObterPorNumero?> ObterPorNumeroAsync(string numeroConta)
         {
             Conta? conta = await _repositorioConta.ObterPorNumeroAsync(numeroConta);
-            return _mapper.Map<ResultadoObterPorNumero>(conta);
+            return _mapeamentoConta.ToDTO(conta);
+
         }
     }
 }

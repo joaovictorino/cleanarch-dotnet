@@ -2,11 +2,11 @@ using AutoMapper;
 using SistemaBancario.Aplicacao.DTOs.ConsultarConta;
 using SistemaBancario.Dominio.Entidades;
 
-namespace SistemaBancario.Aplicacao.Mapeamentos
+namespace SistemaBancario.Infraestrutura.Mapeamentos
 {
-    public class ContaMapeamento : Profile
+    public class PerfilConta : Profile
     {
-        public ContaMapeamento()
+        public PerfilConta()
         {
             CreateMap<Conta, ResultadoListar>()
                 .ForMember(dest => dest.Numero, opt => opt.MapFrom(src => src.Numero))

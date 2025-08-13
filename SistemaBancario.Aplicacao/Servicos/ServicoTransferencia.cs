@@ -1,5 +1,6 @@
-using AutoMapper;
 using SistemaBancario.Aplicacao.DTOs.Transferencia;
+using SistemaBancario.Aplicacao.Interfaces;
+using SistemaBancario.Dominio.Entidades;
 using SistemaBancario.Dominio.Interfaces;
 using SistemaBancario.Dominio.Servicos;
 
@@ -10,19 +11,19 @@ namespace SistemaBancario.Aplicacao.Servicos
         private readonly IRepositorioConta _repositorioConta;
         private readonly IRepositorioTransacao _repositorioTransacao;
         private readonly IUnidadeTrabalho _unidadeTrabalho;
-        private readonly IMapper _mapper;
+        private readonly IMapeamentoTransacao _mapeamentoTransacao;
 
 
         public ServicoTransferencia(
             IRepositorioConta repositorioConta,
             IRepositorioTransacao repositorioTransacao,
             IUnidadeTrabalho unidadeTrabalho,
-            IMapper mapper)
+            IMapeamentoTransacao mapeamentoTransacao)
         {
             _repositorioConta = repositorioConta;
             _repositorioTransacao = repositorioTransacao;
             _unidadeTrabalho = unidadeTrabalho;
-            _mapper = mapper;
+            _mapeamentoTransacao = mapeamentoTransacao;
         }
 
         public async Task<ResultadoTransferenciaDTO> TransferirAsync(TransferenciaDTO dto)
@@ -44,7 +45,7 @@ namespace SistemaBancario.Aplicacao.Servicos
                     throw new InvalidOperationException("Conta de origem e destino não podem ser iguais");
 
                 TransferirValor transferencia = new TransferirValor();
-                var transacao = transferencia.Transferir(contaOrigem, contaDestino, dto.Valor);
+                Transacao transacao = transferencia.Transferir(contaOrigem, contaDestino, dto.Valor);
 
                 await _repositorioTransacao.AdicionarAsync(transacao);
                 await _repositorioConta.AtualizarAsync(contaOrigem);
@@ -52,7 +53,7 @@ namespace SistemaBancario.Aplicacao.Servicos
 
                 await _unidadeTrabalho.ConfirmarTransacaoAsync();
 
-                return _mapper.Map<ResultadoTransferenciaDTO>(transacao);                
+                return _mapeamentoTransacao.ToDTO(transacao);                
             }
             catch (Exception)
             {

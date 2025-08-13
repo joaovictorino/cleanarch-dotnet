@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0" />
+    <ProjectReference Include="..\SistemaBancario.Aplicacao\SistemaBancario.Aplicacao.csproj" />
     <ProjectReference Include="..\SistemaBancario.Dominio\SistemaBancario.Dominio.csproj" />
   </ItemGroup>
 

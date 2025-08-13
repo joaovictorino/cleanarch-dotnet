@@ -10,7 +10,6 @@ dotnet new classlib -n SistemaBancario.Aplicacao
 dotnet sln add SistemaBancario.Aplicacao
 
 # Adicionar referência no projeto de aplicacao
-dotnet add package AutoMapper --version 13.0.1
 dotnet add SistemaBancario.Aplicacao reference SistemaBancario.Dominio
 
 # Criar projeto de infraestrutura
@@ -18,9 +17,11 @@ dotnet new classlib -n SistemaBancario.Infraestrutura
 dotnet sln add SistemaBancario.Infraestrutura
 
 # Adicionar referências no projeto de infraestrutura
+dotnet add SistemaBancario.Infraestrutura reference SistemaBancario.Dominio
+dotnet add SistemaBancario.Infraestrutura reference SistemaBancario.Aplicacao
 dotnet add package Microsoft.EntityFrameworkCore --version 8.0.0
 dotnet add package Pomelo.EntityFrameworkCore.MySql --version 8.0.0
-dotnet add SistemaBancario.Infraestrutura reference SistemaBancario.Dominio
+dotnet add package AutoMapper --version 13.0.1
 
 # Criar projeto de API
 dotnet new webapi -n SistemaBancario.Api
@@ -30,9 +31,8 @@ dotnet sln add SistemaBancario.Api
 dotnet add SistemaBancario.Api reference SistemaBancario.Aplicacao
 dotnet add SistemaBancario.Api reference SistemaBancario.Infraestrutura
 dotnet add package Swashbuckle.AspNetCore --version 6.5.0
-dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.0
 dotnet add package AutoMapper --version 13.0.1
-dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 13.0.1
+dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.0
 
 # Instalar dependências nuget
 dotnet restore

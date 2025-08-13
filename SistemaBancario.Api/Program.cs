@@ -4,7 +4,8 @@ using SistemaBancario.Infraestrutura.Dados;
 using SistemaBancario.Infraestrutura.Repositorios;
 using SistemaBancario.Dominio.Interfaces;
 using SistemaBancario.Aplicacao.Servicos;
-using SistemaBancario.Aplicacao.Mapeamentos;
+using SistemaBancario.Infraestrutura.Mapeamentos;
+using SistemaBancario.Aplicacao.Interfaces;
 
 var construtor = WebApplication.CreateBuilder(args);
 
@@ -15,13 +16,14 @@ construtor.Services.AddDbContext<ContextoBancario>(opcoes =>
     opcoes.UseMySql(stringConexao, ServerVersion.AutoDetect(stringConexao));
 });
 
-// Registro do AutoMapper
-construtor.Services.AddAutoMapper(typeof(ContaMapeamento), typeof(TransacaoMapeamento));
+construtor.Services.AddAutoMapper(typeof(PerfilConta), typeof(PerfilTransacao));
 
 // Configurar repositórios
 construtor.Services.AddScoped<IRepositorioConta, RepositorioConta>();
 construtor.Services.AddScoped<IRepositorioTransacao, RepositorioTransacao>();
 construtor.Services.AddScoped<IUnidadeTrabalho, UnidadeTrabalho>();
+construtor.Services.AddScoped<IMapeamentoConta, MapeamentoConta>();
+construtor.Services.AddScoped<IMapeamentoTransacao, MapeamentoTransacao>();
 
 // Configurar serviços
 construtor.Services.AddScoped<ServicoConta>();

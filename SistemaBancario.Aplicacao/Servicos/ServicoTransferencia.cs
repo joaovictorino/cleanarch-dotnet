@@ -48,8 +48,8 @@ namespace SistemaBancario.Aplicacao.Servicos
                 Transacao transacao = transferencia.Transferir(contaOrigem, contaDestino, dto.Valor);
 
                 await _repositorioTransacao.AdicionarAsync(transacao);
-                await _repositorioConta.AtualizarAsync(contaOrigem);
-                await _repositorioConta.AtualizarAsync(contaDestino);
+                _repositorioConta.Atualizar(contaOrigem);
+                _repositorioConta.Atualizar(contaDestino);
 
                 await _unidadeTrabalho.ConfirmarTransacaoAsync();
 

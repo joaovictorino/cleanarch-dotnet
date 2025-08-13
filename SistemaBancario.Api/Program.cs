@@ -6,6 +6,7 @@ using SistemaBancario.Dominio.Interfaces;
 using SistemaBancario.Aplicacao.Servicos;
 using SistemaBancario.Infraestrutura.Mapeamentos;
 using SistemaBancario.Aplicacao.Interfaces;
+using SistemaBancario.Dominio.Servicos;
 
 var construtor = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ construtor.Services.AddScoped<IMapeamentoConta, MapeamentoConta>();
 construtor.Services.AddScoped<IMapeamentoTransacao, MapeamentoTransacao>();
 
 // Configurar serviços
+construtor.Services.AddScoped<ITransferirValor, TransferirValor>();
 construtor.Services.AddScoped<ServicoConta>();
 construtor.Services.AddScoped<ServicoTransferencia>();
 

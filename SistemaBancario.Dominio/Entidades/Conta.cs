@@ -44,7 +44,7 @@ namespace SistemaBancario.Dominio.Entidades
                 throw new ArgumentException("O valor do saque deve ser positivo.");
             
             if (valor > Saldo)
-                throw new InvalidOperationException("Saldo insuficiente para o saque.");
+                throw new InvalidOperationException("Saldo insuficiente para operação.");
 
             Saldo -= valor;
         }

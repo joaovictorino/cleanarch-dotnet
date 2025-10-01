@@ -1,4 +1,16 @@
 services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: Server=mysql;Port=3306;Database=SistemaBancarioDb;Uid=root;Pwd=root;
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    depends_on:
+      - mysql
   mysql:
     image: mysql:8.0
     environment:

@@ -5,7 +5,7 @@ namespace SistemaBancario.Dominio.Tests.Entidades;
 public class ContaTests
 {
     [Fact]
-    public void Depositar_WhenValorIsPositive_ShouldIncreaseSaldo()
+    public void Depositar_QuandoValorPositivo_DeveAumentarSaldo()
     {
         var conta = new Conta("123456", "Cliente Teste", 100m);
 
@@ -17,7 +17,7 @@ public class ContaTests
     [Theory]
     [InlineData(0)]
     [InlineData(-10)]
-    public void Depositar_WhenValorIsNotPositive_ShouldThrowArgumentException(decimal valor)
+    public void Depositar_QuandoValorNaoPositivo_DeveLancarArgumentException(decimal valor)
     {
         var conta = new Conta("123456", "Cliente Teste", 100m);
 
@@ -27,7 +27,7 @@ public class ContaTests
     }
 
     [Fact]
-    public void Sacar_WhenValorIsPositiveAndSaldoSuficiente_ShouldDecreaseSaldo()
+    public void Sacar_QuandoValorPositivoESaldoSuficiente_DeveReduzirSaldo()
     {
         var conta = new Conta("123456", "Cliente Teste", 200m);
 
@@ -37,7 +37,7 @@ public class ContaTests
     }
 
     [Fact]
-    public void Sacar_WhenValorEqualsSaldo_ShouldReduceSaldoToZero()
+    public void Sacar_QuandoValorIgualSaldo_DeveZerarSaldo()
     {
         var conta = new Conta("123456", "Cliente Teste", 200m);
 
@@ -49,7 +49,7 @@ public class ContaTests
     [Theory]
     [InlineData(0)]
     [InlineData(-10)]
-    public void Sacar_WhenValorIsNotPositive_ShouldThrowArgumentException(decimal valor)
+    public void Sacar_QuandoValorNaoPositivo_DeveLancarArgumentException(decimal valor)
     {
         var conta = new Conta("123456", "Cliente Teste", 200m);
 
@@ -59,7 +59,7 @@ public class ContaTests
     }
 
     [Fact]
-    public void Sacar_WhenValorIsGreaterThanSaldo_ShouldThrowInvalidOperationException()
+    public void Sacar_QuandoValorMaiorQueSaldo_DeveLancarInvalidOperationException()
     {
         var conta = new Conta("123456", "Cliente Teste", 100m);
 

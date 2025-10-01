@@ -55,7 +55,7 @@ app.MapControllers();
 using (var escopo = app.Services.CreateScope())
 {
     var contexto = escopo.ServiceProvider.GetRequiredService<ContextoBancario>();
-    contexto.Database.EnsureCreated();
+    contexto.Database.Migrate();
 }
 
 app.Run();

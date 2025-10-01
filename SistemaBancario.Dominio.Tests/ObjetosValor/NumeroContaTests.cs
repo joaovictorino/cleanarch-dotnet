@@ -5,7 +5,7 @@ namespace SistemaBancario.Dominio.Tests.ObjetosValor;
 public class NumeroContaTests
 {
     [Fact]
-    public void Constructor_WhenValorIsValid_ShouldCreateNumeroConta()
+    public void Construtor_QuandoValorValido_DeveCriarNumeroConta()
     {
         var numeroConta = new NumeroConta("123456");
 
@@ -17,7 +17,7 @@ public class NumeroContaTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public void Constructor_WhenValorIsNullOrWhitespace_ShouldThrowArgumentException(string? value)
+    public void Construtor_QuandoValorNuloOuEspacoEmBranco_DeveLancarArgumentException(string? value)
     {
         var exception = Assert.Throws<ArgumentException>(() => new NumeroConta(value!));
 
@@ -28,7 +28,7 @@ public class NumeroContaTests
     [InlineData("12345")]
     [InlineData("1234567")]
     [InlineData("12A456")]
-    public void Constructor_WhenValorHasInvalidFormat_ShouldThrowArgumentException(string value)
+    public void Construtor_QuandoValorFormatoInvalido_DeveLancarArgumentException(string value)
     {
         var exception = Assert.Throws<ArgumentException>(() => new NumeroConta(value));
 
@@ -36,7 +36,7 @@ public class NumeroContaTests
     }
 
     [Fact]
-    public void ImplicitConversion_FromString_ShouldReturnNumeroConta()
+    public void ConversaoImplicita_DeString_DeveRetornarNumeroConta()
     {
         NumeroConta numeroConta = "654321";
 
@@ -44,7 +44,7 @@ public class NumeroContaTests
     }
 
     [Fact]
-    public void ImplicitConversion_ToString_ShouldReturnUnderlyingValue()
+    public void ConversaoImplicita_ParaString_DeveRetornarValorBase()
     {
         var numeroConta = new NumeroConta("654321");
 

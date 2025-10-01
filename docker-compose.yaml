@@ -6,11 +6,24 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: Server=mysql;Port=3306;Database=SistemaBancarioDb;Uid=root;Pwd=root;
+      Cors__AllowedOrigins: http://localhost:3000
     ports:
       - "8080:8080"
     restart: on-failure
     depends_on:
       - mysql
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      API_BASE_URL: http://api:8080
+      NEXT_PUBLIC_API_BASE_URL: http://api:8080
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    depends_on:
+      - api
   mysql:
     image: mysql:8.0
     environment:

@@ -1,2 +1,13 @@
 obj
 bin
+# Node / Next.js
+frontend/.next
+frontend/node_modules
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-store
+frontend/pnpm-lock.yaml
+frontend/.turbo
+frontend/.env
+frontend/.env.*

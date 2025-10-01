@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaBancario.Dominio.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaBancario.Aplicacao.Tests", "SistemaBancario.Aplicacao.Tests\SistemaBancario.Aplicacao.Tests.csproj", "{8B59BDD4-B3A1-4113-860D-01F77D08F3B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaBancario.Api.Tests", "SistemaBancario.Api.Tests\SistemaBancario.Api.Tests.csproj", "{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,18 @@ Global
 		{8B59BDD4-B3A1-4113-860D-01F77D08F3B7}.Release|x64.Build.0 = Release|Any CPU
 		{8B59BDD4-B3A1-4113-860D-01F77D08F3B7}.Release|x86.ActiveCfg = Release|Any CPU
 		{8B59BDD4-B3A1-4113-860D-01F77D08F3B7}.Release|x86.Build.0 = Release|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Debug|x64.Build.0 = Debug|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Debug|x86.Build.0 = Debug|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Release|x64.ActiveCfg = Release|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Release|x64.Build.0 = Release|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Release|x86.ActiveCfg = Release|Any CPU
+		{7FBD4868-27EA-4B09-B5B9-D709AE66E3DB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

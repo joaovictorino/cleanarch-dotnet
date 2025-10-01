@@ -6,7 +6,7 @@ using SistemaBancario.Dominio.Interfaces;
 
 namespace SistemaBancario.Aplicacao.Servicos
 {
-    public class ServicoConta
+    public class ServicoConta : IServicoConta
     {
         private readonly IRepositorioConta _repositorioConta;
         private readonly IUnidadeTrabalho _unidadeTrabalho;

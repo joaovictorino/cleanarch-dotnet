@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using SistemaBancario.Aplicacao.Servicos;
+using SistemaBancario.Aplicacao.Interfaces;
 using SistemaBancario.Aplicacao.DTOs.CriarConta;
 using SistemaBancario.Aplicacao.DTOs.Transferencia;
 using SistemaBancario.Api.Erros;
@@ -11,10 +11,10 @@ namespace SistemaBancario.Api.Controllers
     [Route("api/[controller]")]
     public class ContasController : ControllerBase
     {
-        private readonly ServicoConta _servicoConta;
-        private readonly ServicoTransferencia _servicoTransferencia;
+        private readonly IServicoConta _servicoConta;
+        private readonly IServicoTransferencia _servicoTransferencia;
 
-        public ContasController(ServicoConta servicoConta, ServicoTransferencia servicoTransferencia)
+        public ContasController(IServicoConta servicoConta, IServicoTransferencia servicoTransferencia)
         {
             _servicoConta = servicoConta;
             _servicoTransferencia = servicoTransferencia;

@@ -4,7 +4,7 @@ using SistemaBancario.Dominio.Entidades;
 using SistemaBancario.Dominio.Interfaces;
 namespace SistemaBancario.Aplicacao.Servicos
 {
-    public class ServicoTransferencia
+    public class ServicoTransferencia : IServicoTransferencia
     {
         private readonly IRepositorioConta _repositorioConta;
         private readonly IRepositorioTransacao _repositorioTransacao;

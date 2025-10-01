@@ -29,8 +29,8 @@ construtor.Services.AddScoped<IMapeamentoTransacao, MapeamentoTransacao>();
 
 // Configurar serviços
 construtor.Services.AddScoped<ITransferirValor, TransferirValor>();
-construtor.Services.AddScoped<ServicoConta>();
-construtor.Services.AddScoped<ServicoTransferencia>();
+construtor.Services.AddScoped<IServicoConta, ServicoConta>();
+construtor.Services.AddScoped<IServicoTransferencia, ServicoTransferencia>();
 
 // Configurar controllers
 construtor.Services.AddControllers();

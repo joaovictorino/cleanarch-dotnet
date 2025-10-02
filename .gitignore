@@ -11,3 +11,7 @@ frontend/pnpm-lock.yaml
 frontend/.turbo
 frontend/.env
 frontend/.env.*
+infra/terraform/terraform.tfvars
+.terraform
+*.tfstate
+*.tfstate.backup

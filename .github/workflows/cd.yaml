@@ -1,0 +1,77 @@
+# Requires AZURE_CREDENTIALS secret containing Azure service principal JSON for azure/login.
+name: CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      resource_group:
+        description: Azure resource group containing the container apps
+        required: true
+      backend_app_name:
+        description: Name of the backend container app
+        required: true
+      backend_image:
+        description: Fully qualified backend image (registry.azurecr.io/backend:tag)
+        required: true
+      frontend_app_name:
+        description: Name of the frontend container app
+        required: true
+      frontend_image:
+        description: Fully qualified frontend image (registry.azurecr.io/frontend:tag)
+        required: true
+      subscription_id:
+        description: Optional Azure subscription to target (defaults to credentials)
+        required: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    env:
+      RESOURCE_GROUP: ${{ inputs.resource_group }}
+      BACKEND_APP: ${{ inputs.backend_app_name }}
+      BACKEND_IMAGE: ${{ inputs.backend_image }}
+      FRONTEND_APP: ${{ inputs.frontend_app_name }}
+      FRONTEND_IMAGE: ${{ inputs.frontend_image }}
+      SUBSCRIPTION_ID: ${{ inputs.subscription_id }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Select subscription
+        if: env.SUBSCRIPTION_ID != ''
+        run: az account set --subscription "$SUBSCRIPTION_ID"
+
+      - name: Update backend container app image
+        run: |
+          az containerapp update \
+            --name "$BACKEND_APP" \
+            --resource-group "$RESOURCE_GROUP" \
+            --image "$BACKEND_IMAGE"
+
+      - name: Update frontend container app image
+        run: |
+          az containerapp update \
+            --name "$FRONTEND_APP" \
+            --resource-group "$RESOURCE_GROUP" \
+            --image "$FRONTEND_IMAGE"
+
+      - name: Show running revisions
+        run: |
+          az containerapp revision list \
+            --name "$BACKEND_APP" \
+            --resource-group "$RESOURCE_GROUP" \
+            --output table
+          az containerapp revision list \
+            --name "$FRONTEND_APP" \
+            --resource-group "$RESOURCE_GROUP" \
+            --output table

@@ -251,10 +251,18 @@ resource "null_resource" "github_acr_variables" {
   provisioner "local-exec" {
     interpreter = ["bash", "-c"]
     environment = {
-      ACR_LOGIN_SERVER = azurerm_container_registry.main.login_server
-      ACR_USERNAME     = azurerm_container_registry.main.admin_username
-      ACR_PASSWORD     = azurerm_container_registry.main.admin_password
-      GH_REPOSITORY    = var.github_repository
+      ACR_LOGIN_SERVER               = azurerm_container_registry.main.login_server
+      ACR_USERNAME                   = azurerm_container_registry.main.admin_username
+      ACR_PASSWORD                   = azurerm_container_registry.main.admin_password
+      GH_REPOSITORY                  = var.github_repository
+      AZURE_RESOURCE_GROUP           = azurerm_resource_group.main.name
+      AZURE_BACKEND_CONTAINER_APP    = azurerm_container_app.backend.name
+      AZURE_FRONTEND_CONTAINER_APP   = azurerm_container_app.frontend.name
+      AZURE_SUBSCRIPTION_ID          = var.subscription_id
+      RESOURCE_GROUP                 = azurerm_resource_group.main.name
+      BACKEND_CONTAINER_APP          = azurerm_container_app.backend.name
+      FRONTEND_CONTAINER_APP         = azurerm_container_app.frontend.name
+      SUBSCRIPTION_ID                = var.subscription_id
     }
 
     command = <<-EOT
@@ -274,10 +282,10 @@ resource "null_resource" "github_acr_variables" {
         gh secret set ACR_LOGIN_SERVER --repo "$${GH_REPOSITORY}" --body "$${ACR_LOGIN_SERVER}"
         gh secret set ACR_USERNAME --repo "$${GH_REPOSITORY}" --body "$${ACR_USERNAME}"
         gh secret set ACR_PASSWORD --repo "$${GH_REPOSITORY}" --body "$${ACR_PASSWORD}"
-      else
-        gh variable set ACR_LOGIN_SERVER --body "$${ACR_LOGIN_SERVER}"
-        gh secret set ACR_USERNAME --body "$${ACR_USERNAME}"
-        gh secret set ACR_PASSWORD --body "$${ACR_PASSWORD}"
+        gh variable set RESOURCE_GROUP --repo "$${GH_REPOSITORY}" --body "$${RESOURCE_GROUP}"
+        gh variable set BACKEND_CONTAINER_APP --repo "$${GH_REPOSITORY}" --body "$${BACKEND_CONTAINER_APP}"
+        gh variable set FRONTEND_CONTAINER_APP --repo "$${GH_REPOSITORY}" --body "$${FRONTEND_CONTAINER_APP}"
+        gh variable set SUBSCRIPTION_ID --repo "$${GH_REPOSITORY}" --body "$${SUBSCRIPTION_ID}"
       fi
     EOT
   }

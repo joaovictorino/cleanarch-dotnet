@@ -4,7 +4,7 @@ export default function Dashboard() {
   return (
     <>
       <header>
-        <h1>Sistema Bancário</h1>
+        <h1>Sistema Bancário Exemplo</h1>
       </header>
       <div className="table">
         <div className="row header">

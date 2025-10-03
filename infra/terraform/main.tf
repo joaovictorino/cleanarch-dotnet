@@ -57,7 +57,7 @@ locals {
 resource "azurerm_mysql_flexible_server" "main" {
   name                   = local.mysql_server_name
   resource_group_name    = azurerm_resource_group.main.name
-  location               = "brazilsoutheast"
+  location               = azurerm_resource_group.main.location
   administrator_login    = var.mysql_admin_username
   administrator_password = var.mysql_admin_password
   sku_name               = var.mysql_sku_name
@@ -250,18 +250,18 @@ resource "null_resource" "github_acr_variables" {
   provisioner "local-exec" {
     interpreter = ["bash", "-c"]
     environment = {
-      ACR_LOGIN_SERVER               = azurerm_container_registry.main.login_server
-      ACR_USERNAME                   = azurerm_container_registry.main.admin_username
-      ACR_PASSWORD                   = azurerm_container_registry.main.admin_password
-      GH_REPOSITORY                  = var.github_repository
-      AZURE_RESOURCE_GROUP           = azurerm_resource_group.main.name
-      AZURE_BACKEND_CONTAINER_APP    = azurerm_container_app.backend.name
-      AZURE_FRONTEND_CONTAINER_APP   = azurerm_container_app.frontend.name
-      AZURE_SUBSCRIPTION_ID          = var.subscription_id
-      RESOURCE_GROUP                 = azurerm_resource_group.main.name
-      BACKEND_CONTAINER_APP          = azurerm_container_app.backend.name
-      FRONTEND_CONTAINER_APP         = azurerm_container_app.frontend.name
-      SUBSCRIPTION_ID                = var.subscription_id
+      ACR_LOGIN_SERVER             = azurerm_container_registry.main.login_server
+      ACR_USERNAME                 = azurerm_container_registry.main.admin_username
+      ACR_PASSWORD                 = azurerm_container_registry.main.admin_password
+      GH_REPOSITORY                = var.github_repository
+      AZURE_RESOURCE_GROUP         = azurerm_resource_group.main.name
+      AZURE_BACKEND_CONTAINER_APP  = azurerm_container_app.backend.name
+      AZURE_FRONTEND_CONTAINER_APP = azurerm_container_app.frontend.name
+      AZURE_SUBSCRIPTION_ID        = var.subscription_id
+      RESOURCE_GROUP               = azurerm_resource_group.main.name
+      BACKEND_CONTAINER_APP        = azurerm_container_app.backend.name
+      FRONTEND_CONTAINER_APP       = azurerm_container_app.frontend.name
+      SUBSCRIPTION_ID              = var.subscription_id
     }
 
     command = <<-EOT

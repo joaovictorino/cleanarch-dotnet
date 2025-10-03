@@ -63,12 +63,8 @@ construtor.Services.AddSwaggerGen();
 
 var app = construtor.Build();
 
-// Configurar pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();

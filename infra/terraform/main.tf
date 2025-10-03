@@ -51,18 +51,17 @@ resource "azurerm_container_registry" "main" {
 }
 
 locals {
-  mysql_server_name = substr("${replace(local.sanitized_project, "-", "")}${var.environment}${random_string.suffix.result}", 0, 40)
+  mysql_server_name = substr("${replace(local.sanitized_project, "-", "")}6${var.environment}${random_string.suffix.result}", 0, 40)
 }
 
 resource "azurerm_mysql_flexible_server" "main" {
   name                   = local.mysql_server_name
   resource_group_name    = azurerm_resource_group.main.name
-  location               = "eastus2"
+  location               = "brazilsoutheast"
   administrator_login    = var.mysql_admin_username
   administrator_password = var.mysql_admin_password
   sku_name               = var.mysql_sku_name
   version                = var.mysql_version
-  zone                   = 2
   storage {
     size_gb = var.mysql_storage_gb
   }

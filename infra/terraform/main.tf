@@ -18,7 +18,7 @@ resource "random_string" "suffix" {
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = "${local.base_name}-rg"
+  name     = "rg-${local.base_name}"
   location = var.location
   tags     = local.tags
 }

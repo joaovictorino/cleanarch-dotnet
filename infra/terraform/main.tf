@@ -172,7 +172,7 @@ resource "azurerm_container_app" "backend" {
 
   depends_on = [
     azurerm_mysql_flexible_database.main,
-    null_resource.push_backend_image
+    #    null_resource.push_backend_image
   ]
 }
 
@@ -234,7 +234,7 @@ resource "azurerm_container_app" "frontend" {
   tags = local.tags
 
   depends_on = [
-    null_resource.push_frontend_image,
+    #    null_resource.push_frontend_image,
     azurerm_mysql_flexible_database.main
   ]
 }
@@ -261,7 +261,6 @@ resource "null_resource" "github_acr_variables" {
       RESOURCE_GROUP               = azurerm_resource_group.main.name
       BACKEND_CONTAINER_APP        = azurerm_container_app.backend.name
       FRONTEND_CONTAINER_APP       = azurerm_container_app.frontend.name
-      SUBSCRIPTION_ID              = var.subscription_id
     }
 
     command = <<-EOT
@@ -284,7 +283,6 @@ resource "null_resource" "github_acr_variables" {
         gh variable set RESOURCE_GROUP --repo "$${GH_REPOSITORY}" --body "$${RESOURCE_GROUP}"
         gh variable set BACKEND_CONTAINER_APP --repo "$${GH_REPOSITORY}" --body "$${BACKEND_CONTAINER_APP}"
         gh variable set FRONTEND_CONTAINER_APP --repo "$${GH_REPOSITORY}" --body "$${FRONTEND_CONTAINER_APP}"
-        gh variable set SUBSCRIPTION_ID --repo "$${GH_REPOSITORY}" --body "$${SUBSCRIPTION_ID}"
       fi
     EOT
   }
@@ -294,84 +292,84 @@ resource "null_resource" "github_acr_variables" {
   ]
 }
 
-resource "null_resource" "push_backend_image" {
-  triggers = {
-    local_image   = var.backend_local_image
-    remote_image  = local.backend_image
-    password_hash = sha256(azurerm_container_registry.main.admin_password)
-  }
-
-  provisioner "local-exec" {
-    interpreter = ["bash", "-c"]
-    environment = {
-      ACR_LOGIN_SERVER = azurerm_container_registry.main.login_server
-      ACR_USERNAME     = azurerm_container_registry.main.admin_username
-      ACR_PASSWORD     = azurerm_container_registry.main.admin_password
-      LOCAL_IMAGE      = var.backend_local_image
-      REMOTE_IMAGE     = local.backend_image
-    }
-
-    command = <<-EOT
-      set -euo pipefail
-
-      if ! command -v docker >/dev/null 2>&1; then
-        echo "Docker CLI not found in PATH." >&2
-        exit 1
-      fi
-
-      if ! docker image inspect "$${LOCAL_IMAGE}" >/dev/null 2>&1; then
-        echo "Local Docker image '$${LOCAL_IMAGE}' not found. Build it before applying Terraform." >&2
-        exit 1
-      fi
-
-      echo "$${ACR_PASSWORD}" | docker login "$${ACR_LOGIN_SERVER}" -u "$${ACR_USERNAME}" --password-stdin
-      docker tag "$${LOCAL_IMAGE}" "$${REMOTE_IMAGE}"
-      docker push "$${REMOTE_IMAGE}"
-    EOT
-  }
-
-  depends_on = [
-    azurerm_container_registry.main
-  ]
-}
-
-resource "null_resource" "push_frontend_image" {
-  triggers = {
-    local_image   = var.frontend_local_image
-    remote_image  = local.frontend_image
-    password_hash = sha256(azurerm_container_registry.main.admin_password)
-  }
-
-  provisioner "local-exec" {
-    interpreter = ["bash", "-c"]
-    environment = {
-      ACR_LOGIN_SERVER = azurerm_container_registry.main.login_server
-      ACR_USERNAME     = azurerm_container_registry.main.admin_username
-      ACR_PASSWORD     = azurerm_container_registry.main.admin_password
-      LOCAL_IMAGE      = var.frontend_local_image
-      REMOTE_IMAGE     = local.frontend_image
-    }
-
-    command = <<-EOT
-      set -euo pipefail
-
-      if ! command -v docker >/dev/null 2>&1; then
-        echo "Docker CLI not found in PATH." >&2
-        exit 1
-      fi
-
-      if ! docker image inspect "$${LOCAL_IMAGE}" >/dev/null 2>&1; then
-        echo "Local Docker image '$${LOCAL_IMAGE}' not found. Build it before applying Terraform." >&2
-        exit 1
-      fi
-
-      echo "$${ACR_PASSWORD}" | docker login "$${ACR_LOGIN_SERVER}" -u "$${ACR_USERNAME}" --password-stdin
-      docker tag "$${LOCAL_IMAGE}" "$${REMOTE_IMAGE}"
-      docker push "$${REMOTE_IMAGE}"
-    EOT
-  }
-
-  depends_on = [
-    azurerm_container_registry.main
-  ]
-}
+#resource "null_resource" "push_backend_image" {
+#  triggers = {
+#    local_image   = var.backend_local_image
+#    remote_image  = local.backend_image
+#    password_hash = sha256(azurerm_container_registry.main.admin_password)
+#  }
+#
+#  provisioner "local-exec" {
+#    interpreter = ["bash", "-c"]
+#    environment = {
+#      ACR_LOGIN_SERVER = azurerm_container_registry.main.login_server
+#      ACR_USERNAME     = azurerm_container_registry.main.admin_username
+#      ACR_PASSWORD     = azurerm_container_registry.main.admin_password
+#      LOCAL_IMAGE      = var.backend_local_image
+#      REMOTE_IMAGE     = local.backend_image
+#    }
+#
+#    command = <<-EOT
+#      set -euo pipefail
+#
+#      if ! command -v docker >/dev/null 2>&1; then
+#        echo "Docker CLI not found in PATH." >&2
+#        exit 1
+#      fi
+#
+#      if ! docker image inspect "$${LOCAL_IMAGE}" >/dev/null 2>&1; then
+#        echo "Local Docker image '$${LOCAL_IMAGE}' not found. Build it before applying Terraform." >&2
+#        exit 1
+#      fi
+#
+#      echo "$${ACR_PASSWORD}" | docker login "$${ACR_LOGIN_SERVER}" -u "$${ACR_USERNAME}" --password-stdin
+#      docker tag "$${LOCAL_IMAGE}" "$${REMOTE_IMAGE}"
+#      docker push "$${REMOTE_IMAGE}"
+#    EOT
+#  }
+#
+#  depends_on = [
+#    azurerm_container_registry.main
+#  ]
+#}
+#
+#resource "null_resource" "push_frontend_image" {
+#  triggers = {
+#    local_image   = var.frontend_local_image
+#    remote_image  = local.frontend_image
+#    password_hash = sha256(azurerm_container_registry.main.admin_password)
+#  }
+#
+#  provisioner "local-exec" {
+#    interpreter = ["bash", "-c"]
+#    environment = {
+#      ACR_LOGIN_SERVER = azurerm_container_registry.main.login_server
+#      ACR_USERNAME     = azurerm_container_registry.main.admin_username
+#      ACR_PASSWORD     = azurerm_container_registry.main.admin_password
+#      LOCAL_IMAGE      = var.frontend_local_image
+#      REMOTE_IMAGE     = local.frontend_image
+#    }
+#
+#    command = <<-EOT
+#      set -euo pipefail
+#
+#      if ! command -v docker >/dev/null 2>&1; then
+#        echo "Docker CLI not found in PATH." >&2
+#        exit 1
+#      fi
+#
+#      if ! docker image inspect "$${LOCAL_IMAGE}" >/dev/null 2>&1; then
+#        echo "Local Docker image '$${LOCAL_IMAGE}' not found. Build it before applying Terraform." >&2
+#        exit 1
+#      fi
+#
+#      echo "$${ACR_PASSWORD}" | docker login "$${ACR_LOGIN_SERVER}" -u "$${ACR_USERNAME}" --password-stdin
+#      docker tag "$${LOCAL_IMAGE}" "$${REMOTE_IMAGE}"
+#      docker push "$${REMOTE_IMAGE}"
+#    EOT
+#  }
+#
+#  depends_on = [
+#    azurerm_container_registry.main
+#  ]
+#}

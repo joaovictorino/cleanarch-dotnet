@@ -20,6 +20,7 @@ permissions:
 env:
   TF_VERSION: "1.13.4"
   WORKING_DIR: "./infra/terraform"
+  GH_TOKEN: ${{ secrets.GH_PAT }}
 
 jobs:
   terraform:

@@ -37,6 +37,7 @@ variable "mysql_admin_password" {
   description = "Administrator password for the MySQL Flexible Server."
   type        = string
   sensitive   = true
+  default     = "teste1234!"
 }
 
 variable "mysql_sku_name" {

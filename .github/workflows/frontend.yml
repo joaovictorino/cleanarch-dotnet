@@ -2,15 +2,15 @@ name: Frontend Pipeline
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: ["main", "master"]
     paths:
-      - '.github/workflows/frontend.yml'
-      - 'frontend/**'
+      - ".github/workflows/frontend.yml"
+      - "frontend/**"
   pull_request:
-    branches: [ "main", "master" ]
+    branches: ["main", "master"]
     paths:
-      - '.github/workflows/frontend.yml'
-      - 'frontend/**'
+      - ".github/workflows/frontend.yml"
+      - "frontend/**"
   workflow_dispatch:
 
 permissions:
@@ -31,7 +31,7 @@ jobs:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       RESOURCE_GROUP: ${{ vars.RESOURCE_GROUP }}
       CONTAINER_APP: ${{ vars.FRONTEND_CONTAINER_APP }}
-      SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
+      SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
     steps:
       - name: Checkout
@@ -41,7 +41,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies

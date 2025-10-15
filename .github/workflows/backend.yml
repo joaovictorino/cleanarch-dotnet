@@ -2,21 +2,21 @@ name: Backend Pipeline
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: ["main", "master"]
     paths:
-      - '.github/workflows/backend.yml'
-      - 'Dockerfile'
-      - 'SistemaBancario.*/**'
-      - 'SistemaBancario.*'
-      - 'SistemaBancario.sln'
+      - ".github/workflows/backend.yml"
+      - "Dockerfile"
+      - "SistemaBancario.*/**"
+      - "SistemaBancario.*"
+      - "SistemaBancario.sln"
   pull_request:
-    branches: [ "main", "master" ]
+    branches: ["main", "master"]
     paths:
-      - '.github/workflows/backend.yml'
-      - 'Dockerfile'
-      - 'SistemaBancario.*/**'
-      - 'SistemaBancario.*'
-      - 'SistemaBancario.sln'
+      - ".github/workflows/backend.yml"
+      - "Dockerfile"
+      - "SistemaBancario.*/**"
+      - "SistemaBancario.*"
+      - "SistemaBancario.sln"
   workflow_dispatch:
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOTNET_VERSION: 9.0.x
-      TEST_RESULTS_PATH: '**/TestResults/*.trx'
+      TEST_RESULTS_PATH: "**/TestResults/*.trx"
       IMAGE_NAME: backend
       IMAGE_TAG: ${{ github.sha }}
       ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
@@ -38,7 +38,7 @@ jobs:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       RESOURCE_GROUP: ${{ vars.RESOURCE_GROUP }}
       CONTAINER_APP: ${{ vars.BACKEND_CONTAINER_APP }}
-      SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
+      SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
     steps:
       - name: Checkout

@@ -192,3 +192,15 @@ variable "frontend_local_image" {
   type        = string
   default     = "frontend:latest"
 }
+
+variable "backend_use_placeholder" {
+  description = "Use a placeholder image for initial deployment. Set to false once real images are available in ACR."
+  type        = bool
+  default     = true
+}
+
+variable "frontend_use_placeholder" {
+  description = "Use a placeholder image for initial deployment. Set to false once real images are available in ACR."
+  type        = bool
+  default     = true
+}

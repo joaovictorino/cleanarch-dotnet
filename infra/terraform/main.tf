@@ -97,8 +97,8 @@ resource "azurerm_mysql_flexible_server_firewall_rule" "custom" {
 }
 
 locals {
-  backend_image  = "${azurerm_container_registry.main.login_server}/${var.backend_image_name}:${var.backend_image_tag}"
-  frontend_image = "${azurerm_container_registry.main.login_server}/${var.frontend_image_name}:${var.frontend_image_tag}"
+  backend_image  = var.backend_use_placeholder ? "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest" : "${azurerm_container_registry.main.login_server}/${var.backend_image_name}:${var.backend_image_tag}"
+  frontend_image = var.frontend_use_placeholder ? "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest" : "${azurerm_container_registry.main.login_server}/${var.frontend_image_name}:${var.frontend_image_tag}"
   mysql_user     = var.mysql_admin_username
   mysql_conn     = "Server=${azurerm_mysql_flexible_server.main.fqdn};Database=${var.mysql_database_name};User Id=${local.mysql_user};Password=${var.mysql_admin_password};Ssl Mode=Required;"
 }
@@ -170,6 +170,13 @@ resource "azurerm_container_app" "backend" {
 
   tags = local.tags
 
+  lifecycle {
+    ignore_changes = [
+      template[0].container[0].image,
+      template[0].revision_suffix
+    ]
+  }
+
   depends_on = [
     azurerm_mysql_flexible_database.main,
     #    null_resource.push_backend_image
@@ -232,6 +239,13 @@ resource "azurerm_container_app" "frontend" {
   }
 
   tags = local.tags
+
+  lifecycle {
+    ignore_changes = [
+      template[0].container[0].image,
+      template[0].revision_suffix
+    ]
+  }
 
   depends_on = [
     #    null_resource.push_frontend_image,

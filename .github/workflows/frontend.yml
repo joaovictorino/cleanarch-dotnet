@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   build-and-deploy:
-    name: Build and Deploy Frontend
+    name: Build Frontend
     runs-on: ubuntu-latest
     env:
       NODE_VERSION: 18

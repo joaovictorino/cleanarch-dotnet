@@ -1,16 +1,6 @@
 name: Terraform Deploy
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - "infra/terraform/**"
-  pull_request:
-    branches:
-      - master
-    paths:
-      - "infra/terraform/**"
   workflow_dispatch:
 
 permissions:

@@ -23,7 +23,7 @@ public class ServicoTransferenciaTests
         await repositorioConta.AdicionarAsync(contaOrigem);
         await repositorioConta.AdicionarAsync(contaDestino);
 
-        var dto = new TransferenciaDTO
+        var dto = new Transferencia
         {
             NumeroContaOrigem = contaOrigem.Numero,
             NumeroContaDestino = contaDestino.Numero,
@@ -52,7 +52,7 @@ public class ServicoTransferenciaTests
         var transferirValor = new TransferirValor();
         var servico = new ServicoTransferencia(repositorioConta, repositorioTransacao, unidadeTrabalho, mapeamento, transferirValor);
 
-        var dto = new TransferenciaDTO
+        var dto = new Transferencia
         {
             NumeroContaOrigem = "333333",
             NumeroContaDestino = "444444",
@@ -80,7 +80,7 @@ public class ServicoTransferenciaTests
         var contaOrigem = new Conta("123123", "Origem", 100m);
         await repositorioConta.AdicionarAsync(contaOrigem);
 
-        var dto = new TransferenciaDTO
+        var dto = new Transferencia
         {
             NumeroContaOrigem = contaOrigem.Numero,
             NumeroContaDestino = "999999",
@@ -108,7 +108,7 @@ public class ServicoTransferenciaTests
         var conta = new Conta("555555", "Cliente", 100m);
         await repositorioConta.AdicionarAsync(conta);
 
-        var dto = new TransferenciaDTO
+        var dto = new Transferencia
         {
             NumeroContaOrigem = conta.Numero,
             NumeroContaDestino = conta.Numero,
@@ -138,7 +138,7 @@ public class ServicoTransferenciaTests
         await repositorioConta.AdicionarAsync(contaOrigem);
         await repositorioConta.AdicionarAsync(contaDestino);
 
-        var dto = new TransferenciaDTO
+        var dto = new Transferencia
         {
             NumeroContaOrigem = contaOrigem.Numero,
             NumeroContaDestino = contaDestino.Numero,

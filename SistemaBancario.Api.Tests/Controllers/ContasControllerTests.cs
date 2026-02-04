@@ -87,7 +87,7 @@ public class ContasControllerTests
     [Fact]
     public async Task Criar_DeveRetornarCreatedQuandoSucesso()
     {
-        var dto = new CriarContaDTO
+        var dto = new CriarConta
         {
             NumeroConta = "111",
             NomeCliente = "Cliente Novo",
@@ -101,26 +101,26 @@ public class ContasControllerTests
 
         var created = Assert.IsType<CreatedResult>(resultado);
         Assert.Equal(StatusCodes.Status201Created, created.StatusCode ?? StatusCodes.Status201Created);
-        servicoContaMock.Verify(s => s.CriarAsync(It.Is<CriarContaDTO>(c => c == dto)), Times.Once);
+        servicoContaMock.Verify(s => s.CriarAsync(It.Is<CriarConta>(c => c == dto)), Times.Once);
     }
 
     [Fact]
     public async Task Transferir_DeveRetornarOkComResultado()
     {
-        var dto = new TransferenciaDTO
+        var dto = new Transferencia
         {
             NumeroContaDestino = "222",
             NumeroContaOrigem = "111",
             Valor = 50m
         };
-        var resultadoEsperado = new ResultadoTransferenciaDTO
+        var resultadoEsperado = new ResultadoTransferencia
         {
             CodigoTransacao = Guid.NewGuid().ToString(),
             DataHoraTransacao = DateTime.UtcNow
         };
 
         var servicoTransferenciaMock = new Mock<IServicoTransferencia>();
-        servicoTransferenciaMock.Setup(s => s.TransferirAsync(It.Is<TransferenciaDTO>(t => t == dto))).ReturnsAsync(resultadoEsperado);
+        servicoTransferenciaMock.Setup(s => s.TransferirAsync(It.Is<Transferencia>(t => t == dto))).ReturnsAsync(resultadoEsperado);
 
         var controller = CriarController(servicoTransferenciaMock: servicoTransferenciaMock);
 
@@ -129,7 +129,7 @@ public class ContasControllerTests
         var okResult = Assert.IsType<OkObjectResult>(resultado);
         Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode ?? StatusCodes.Status200OK);
         Assert.Same(resultadoEsperado, okResult.Value);
-        servicoTransferenciaMock.Verify(s => s.TransferirAsync(It.Is<TransferenciaDTO>(t => t == dto)), Times.Once);
+        servicoTransferenciaMock.Verify(s => s.TransferirAsync(It.Is<Transferencia>(t => t == dto)), Times.Once);
     }
 
     [Fact]
@@ -197,7 +197,7 @@ public class ContasControllerTests
             .Cast<ProducesResponseTypeAttribute>()
             .ToList();
 
-        Assert.Contains(responseTypes, attr => attr.StatusCode == StatusCodes.Status200OK && attr.Type == typeof(ResultadoTransferenciaDTO));
+        Assert.Contains(responseTypes, attr => attr.StatusCode == StatusCodes.Status200OK && attr.Type == typeof(ResultadoTransferencia));
         Assert.Contains(responseTypes, attr => attr.StatusCode == StatusCodes.Status400BadRequest && attr.Type == typeof(Erro));
         Assert.Contains(responseTypes, attr => attr.StatusCode == StatusCodes.Status500InternalServerError && attr.Type == typeof(Erro));
     }

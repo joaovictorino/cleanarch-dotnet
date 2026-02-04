@@ -46,17 +46,17 @@ namespace SistemaBancario.Api.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400, Type = typeof(Erro))]
         [ProducesResponseType(500, Type = typeof(Erro))]
-        public async Task<IActionResult> Criar([FromBody] CriarContaDTO dto)
+        public async Task<IActionResult> Criar([FromBody] CriarConta dto)
         {
             await _servicoConta.CriarAsync(dto);
             return Created();
         }
 
         [HttpPost("/transferir")]
-        [ProducesResponseType(200, Type = typeof(ResultadoTransferenciaDTO))]
+        [ProducesResponseType(200, Type = typeof(ResultadoTransferencia))]
         [ProducesResponseType(400, Type = typeof(Erro))]
         [ProducesResponseType(500, Type = typeof(Erro))]
-        public async Task<IActionResult> Transferir([FromBody] TransferenciaDTO dto)
+        public async Task<IActionResult> Transferir([FromBody] Transferencia dto)
         {
             var resultado = await _servicoTransferencia.TransferirAsync(dto);
             return Ok(resultado);

@@ -8,7 +8,7 @@ namespace SistemaBancario.Infraestrutura.Mapeamentos
     {
         public PerfilTransacao()
         {
-            CreateMap<Transacao, ResultadoTransferenciaDTO>()
+            CreateMap<Transacao, ResultadoTransferencia>()
                 .ForMember(dest => dest.CodigoTransacao, opt => opt.MapFrom(src => src.CodigoTransacao))
                 .ForMember(dest => dest.DataHoraTransacao, opt => opt.MapFrom(src => src.DataHoraTransacao));
         }

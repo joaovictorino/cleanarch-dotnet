@@ -14,9 +14,9 @@ namespace SistemaBancario.Infraestrutura.Mapeamentos
             _mapper = mapper;
         }
 
-        public ResultadoTransferenciaDTO ToDTO(Transacao transacao)
+        public ResultadoTransferencia ToDTO(Transacao transacao)
         {
-            return _mapper.Map<ResultadoTransferenciaDTO>(transacao);
+            return _mapper.Map<ResultadoTransferencia>(transacao);
         }
     }
 }

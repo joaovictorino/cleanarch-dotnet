@@ -6,9 +6,9 @@ namespace SistemaBancario.Aplicacao.Tests.Mocks;
 
 internal class MapeamentoTransacaoEmMemoria : IMapeamentoTransacao
 {
-    public ResultadoTransferenciaDTO ToDTO(Transacao transacao)
+    public ResultadoTransferencia ToDTO(Transacao transacao)
     {
-        return new ResultadoTransferenciaDTO
+        return new ResultadoTransferencia
         {
             CodigoTransacao = transacao.CodigoTransacao,
             DataHoraTransacao = transacao.DataHoraTransacao

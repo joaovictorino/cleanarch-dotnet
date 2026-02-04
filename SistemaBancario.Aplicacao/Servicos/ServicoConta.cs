@@ -22,7 +22,7 @@ namespace SistemaBancario.Aplicacao.Servicos
             _mapeamentoConta = mapeamentoConta;
         }
 
-        public async Task CriarAsync(CriarContaDTO dto)
+        public async Task CriarAsync(CriarConta dto)
         {
             try
             {

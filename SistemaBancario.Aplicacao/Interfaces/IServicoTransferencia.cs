@@ -4,5 +4,5 @@ namespace SistemaBancario.Aplicacao.Interfaces;
 
 public interface IServicoTransferencia
 {
-    Task<ResultadoTransferenciaDTO> TransferirAsync(TransferenciaDTO dto);
+    Task<ResultadoTransferencia> TransferirAsync(Transferencia dto);
 }

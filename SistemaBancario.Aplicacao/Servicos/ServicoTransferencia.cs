@@ -27,7 +27,7 @@ namespace SistemaBancario.Aplicacao.Servicos
             _transferirValor = transferirValor;
         }
 
-        public async Task<ResultadoTransferenciaDTO> TransferirAsync(TransferenciaDTO dto)
+        public async Task<ResultadoTransferencia> TransferirAsync(Transferencia dto)
         {
             try
             {

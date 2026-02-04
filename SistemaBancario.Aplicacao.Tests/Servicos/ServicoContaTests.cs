@@ -15,7 +15,7 @@ public class ServicoContaTests
         var unidadeTrabalho = new UnidadeTrabalhoEmMemoria();
         var mapeamento = new MapeamentoContaEmMemoria();
         var servico = new ServicoConta(repositorio, unidadeTrabalho, mapeamento);
-        var dto = new CriarContaDTO
+        var dto = new CriarConta
         {
             NumeroConta = "123456",
             NomeCliente = "Cliente Teste",
@@ -44,7 +44,7 @@ public class ServicoContaTests
         var contaExistente = new Conta("654321", "Cliente Existente", 50m);
         await repositorio.AdicionarAsync(contaExistente);
 
-        var dto = new CriarContaDTO
+        var dto = new CriarConta
         {
             NumeroConta = contaExistente.Numero,
             NomeCliente = "Cliente Diferente",

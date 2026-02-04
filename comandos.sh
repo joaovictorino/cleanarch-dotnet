@@ -19,6 +19,8 @@ dotnet sln add SistemaBancario.Infraestrutura
 # Adicionar referências no projeto de infraestrutura
 dotnet add SistemaBancario.Infraestrutura reference SistemaBancario.Dominio
 dotnet add SistemaBancario.Infraestrutura reference SistemaBancario.Aplicacao
+
+# Dentro do projeto SistemaBancario.Infraestrutura, adicionar pacotes NuGet
 dotnet add package Microsoft.EntityFrameworkCore --version 8.0.0
 dotnet add package Pomelo.EntityFrameworkCore.MySql --version 8.0.0
 dotnet add package AutoMapper --version 13.0.1
@@ -30,6 +32,8 @@ dotnet sln add SistemaBancario.Api
 # Adicionar referências no projeto de API
 dotnet add SistemaBancario.Api reference SistemaBancario.Aplicacao
 dotnet add SistemaBancario.Api reference SistemaBancario.Infraestrutura
+
+# Dentro do projeto SistemaBancario.Api, adicionar pacotes NuGet
 dotnet add package Swashbuckle.AspNetCore --version 6.5.0
 dotnet add package AutoMapper --version 13.0.1
 dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.0

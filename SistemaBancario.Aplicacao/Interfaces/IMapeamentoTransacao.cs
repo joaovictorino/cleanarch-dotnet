@@ -5,6 +5,6 @@ namespace SistemaBancario.Aplicacao.Interfaces
 {
     public interface IMapeamentoTransacao
     {
-        ResultadoTransferenciaDTO ToDTO(Transacao transacao);
+        ResultadoTransferencia ToDTO(Transacao transacao);
     }
 }

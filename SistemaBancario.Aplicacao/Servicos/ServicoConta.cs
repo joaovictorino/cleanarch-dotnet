@@ -54,7 +54,6 @@ namespace SistemaBancario.Aplicacao.Servicos
         {
             Conta? conta = await _repositorioConta.ObterPorNumeroAsync(numeroConta);
             return _mapeamentoConta.ToDTO(conta);
-
         }
     }
 }

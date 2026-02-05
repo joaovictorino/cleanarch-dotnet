@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using SistemaBancario.Api.Erros;
 
 namespace SistemaBancario.Api.Middlewares

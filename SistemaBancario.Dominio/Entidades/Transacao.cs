@@ -8,7 +8,6 @@ namespace SistemaBancario.Dominio.Entidades
         public decimal Valor { get; private set; }
         public DateTime DataHoraTransacao { get; private set; }
         public string CodigoTransacao { get; private set; }
-
         public Conta ContaOrigem { get; private set; } = null!;
         public Conta ContaDestino { get; private set; } = null!;
 

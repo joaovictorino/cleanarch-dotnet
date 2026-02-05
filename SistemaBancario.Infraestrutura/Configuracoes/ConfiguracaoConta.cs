@@ -9,41 +9,43 @@ namespace SistemaBancario.Infraestrutura.Configuracoes
     {
         public void Configure(EntityTypeBuilder<Conta> construtor)
         {
-            construtor.HasKey(x => x.Id);
-            
-            construtor.Property(x => x.Id)
+            construtor.HasKey(c => c.Id);
+
+            construtor.Property(c => c.Id)
                 .HasColumnType("CHAR(36)")
                 .ValueGeneratedNever();
-            
-            construtor.Property(x => x.Numero)
+
+            construtor.Property(c => c.Numero)
                 .HasConversion(
-                    v => v.Valor,
+                    v => v.Valor, 
                     v => new NumeroConta(v))
                 .HasMaxLength(6)
                 .HasColumnType("VARCHAR(6)")
                 .IsRequired();
 
-            construtor.Property(x => x.NomeCliente)
+            construtor.Property(c => c.NomeCliente)
                 .HasMaxLength(200)
                 .HasColumnType("VARCHAR(200)")
                 .IsRequired();
 
-            construtor.Property(x => x.Saldo)
-                .HasColumnType("DECIMAL(18,2)");
+            construtor.Property(c => c.Saldo)
+                .HasColumnType("DECIMAL(18,2)")
+                .IsRequired();
 
-            construtor.Property(x => x.DataCriacao)
-                .HasColumnType("DATETIME");
+            construtor.Property(c => c.DataCriacao)
+                .HasColumnType("DATETIME")
+                .IsRequired();
 
-            construtor.HasIndex(x => x.Numero)
+            construtor.HasIndex(c => c.Numero)
                 .IsUnique()
-                .HasDatabaseName("IX_Conta_Numero");
+                .HasDatabaseName("IX_Conta_Numero_Unique");
 
-            construtor.HasMany(x => x.TransacoesOrigem)
-                .WithOne(x => x.ContaOrigem)
+            construtor.HasMany(c => c.TransacoesOrigem)
+                .WithOne(t => t.ContaOrigem)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            construtor.HasMany(x => x.TransacoesDestino)
-                .WithOne(x => x.ContaDestino)
+            
+            construtor.HasMany(c => c.TransacoesDestino)
+                .WithOne(t => t.ContaDestino)
                 .OnDelete(DeleteBehavior.Restrict);
 
             construtor.ToTable("Contas");

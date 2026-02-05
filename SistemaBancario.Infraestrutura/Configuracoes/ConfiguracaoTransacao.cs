@@ -8,44 +8,46 @@ namespace SistemaBancario.Infraestrutura.Configuracoes
     {
         public void Configure(EntityTypeBuilder<Transacao> construtor)
         {
-            construtor.HasKey(x => x.Id);
+            construtor.HasKey(t => t.Id);
 
-            construtor.Property(x => x.Id)
+            construtor.Property(t => t.Id)
                 .HasColumnType("CHAR(36)")
                 .ValueGeneratedNever();
 
-            construtor.Property(x => x.IdContaOrigem)
+            construtor.Property(t => t.IdContaOrigem)
                 .HasColumnType("CHAR(36)")
                 .IsRequired();
 
-            construtor.Property(x => x.IdContaDestino)
+            construtor.Property(t => t.IdContaDestino)
                 .HasColumnType("CHAR(36)")
                 .IsRequired();
+    
+            construtor.Property(t => t.Valor)
+                .HasColumnType("DECIMAL(18,2)")
+                .IsRequired();
 
-            construtor.Property(x => x.Valor)
-                .HasColumnType("DECIMAL(18,2)");
-
-            construtor.Property(x => x.DataHoraTransacao)
-                .HasColumnType("DATETIME");
-
-            construtor.Property(x => x.CodigoTransacao)
+            construtor.Property(t => t.DataHoraTransacao)
+                .HasColumnType("DATETIME")
+                .IsRequired();
+            
+            construtor.Property(t => t.CodigoTransacao)
                 .HasMaxLength(50)
                 .HasColumnType("VARCHAR(50)")
                 .IsRequired();
 
-            construtor.HasOne(x => x.ContaOrigem)
-                .WithMany(x => x.TransacoesOrigem)
-                .HasForeignKey(x => x.IdContaOrigem)
+            construtor.HasOne(t => t.ContaOrigem)
+                .WithMany(c => c.TransacoesOrigem)
+                .HasForeignKey(t => t.IdContaOrigem)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            construtor.HasOne(x => x.ContaDestino)
-                .WithMany(x => x.TransacoesDestino)
-                .HasForeignKey(x => x.IdContaDestino)
+            construtor.HasOne(t => t.ContaDestino)
+                .WithMany(c => c.TransacoesDestino)
+                .HasForeignKey(t => t.IdContaDestino)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            construtor.HasIndex(x => x.CodigoTransacao)
+            construtor.HasIndex(t => t.CodigoTransacao)
                 .IsUnique()
-                .HasDatabaseName("IX_Transacao_Codigo");
+                .HasDatabaseName("IX_Transacao_CodigoTransacao_Unique");
 
             construtor.ToTable("Transacoes");
         }

@@ -34,8 +34,8 @@ dotnet add SistemaBancario.Api reference SistemaBancario.Aplicacao
 dotnet add SistemaBancario.Api reference SistemaBancario.Infraestrutura
 
 # Dentro do projeto SistemaBancario.Api, adicionar pacotes NuGet
-dotnet add package Swashbuckle.AspNetCore --version 6.5.0
 dotnet add package AutoMapper --version 13.0.1
+dotnet add package Swashbuckle.AspNetCore --version 6.5.0
 dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.0
 
 # Instalar dependências nuget
